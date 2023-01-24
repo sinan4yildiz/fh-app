@@ -1,0 +1,29 @@
+{
+    "private": true,
+    "scripts": {
+        "dev": "npm run development",
+        "development": "mix",
+        "watch": "mix watch",
+        "prod": "npm run production",
+        "production": "mix --production"
+    },
+    "devDependencies": {
+        "@babel/preset-react": "^7.18.6",
+        "autoprefixer": "10.4.5",
+        "axios": "^1.1.2",
+        "laravel-mix": "^6.0.6",
+        "laravel-vite-plugin": "^0.7.2",
+        "lodash": "^4.17.19",
+        "mix-tailwindcss": "^1.3.0",
+        "postcss": "^8.1.14",
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0",
+        "resolve-url-loader": "^4.0.0",
+        "sass": "^1.43.4",
+        "sass-loader": "^12.3.0",
+        "tailwindcss": "^3.2.4"
+    },
+    "overrides": {
+        "autoprefixer": "10.4.5"
+    }
+}
