@@ -1,6 +1,7 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\ReportingApiController;
+use App\Http\Middleware\ApiResponseHandler;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,6 +15,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::controller(ReportingApiController::class)
+    ->middleware([
+        ApiResponseHandler::class
+    ])
+    ->group(function () {
+        Route::post('/report', 'getReport');
+        Route::post('/transaction', 'getTransaction');
+        Route::post('/transactions', 'getTransactionList');
+        Route::post('/client', 'getClient');
+    });

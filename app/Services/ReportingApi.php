@@ -2,6 +2,8 @@
 
 namespace App\Services;
 
+use Illuminate\Http\Client\Response;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
@@ -13,6 +15,7 @@ class ReportingApi
     protected string $userPassword;
     protected string $accessTokenFilename;
     protected int $accessTokenLifetime;
+    protected $request;
 
     public function __construct(array $config)
     {
@@ -21,24 +24,43 @@ class ReportingApi
         $this->userPassword = $config['userPassword'];
         $this->accessTokenFilename = $config['accessTokenFilename'];
         $this->accessTokenLifetime = $config['accessTokenLifetime'];
-    }
 
-    public function login()
-    {
-        return Http::log()
-            ->post("$this->apiUrl/merchant/user/login", [
-                'email' => $this->userEmail,
-                'password' => $this->userPassword,
+        $this->request = Http::log()
+            ->withHeaders([
+                'Authorization' => $this->getAccessToken(),
             ]);
     }
 
-    public function transactionList(array $params = [])
+    public function login(): Response
     {
-        return Http::log()
-            ->withHeaders([
-                'Authorization' => $this->getAccessToken(),
-            ])
-            ->post("$this->apiUrl/transaction/list", $params);
+        return Http::post("$this->apiUrl/merchant/user/login", [
+            'email' => $this->userEmail,
+            'password' => $this->userPassword,
+        ]);
+    }
+
+    public function getReport(array $params): Response
+    {
+        return $this->request->post("$this->apiUrl/transactions/report", $params);
+    }
+
+    public function getTransaction(string $transactionId): Response
+    {
+        return $this->request->post("$this->apiUrl/transaction", [
+            'transactionId' => $transactionId
+        ]);
+    }
+
+    public function getTransactionList(array $params = []): Response
+    {
+        return $this->request->post("$this->apiUrl/transaction/list", $params);
+    }
+
+    public function getClient(string $transactionId): Response
+    {
+        return $this->request->post("$this->apiUrl/client", [
+            'transactionId' => $transactionId
+        ]);
     }
 
     public function getAccessToken(): string | null
@@ -79,6 +101,11 @@ class ReportingApi
         }
 
         return null;
+    }
+
+    private function getStub($name): string
+    {
+        return File::get(app_path("stubs/{$name}.json"));
     }
 
     private function logException(\Exception $exception): void

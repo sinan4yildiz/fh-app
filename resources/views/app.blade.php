@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="{{ mix('css/app.min.css') }}" rel="stylesheet" type="text/css"/>
 </head>
-<body class="antialiased">
+<body class="antialiased bg-gray-900">
     <div id="app"></div>
     <script type="text/javascript" src="{{ mix('js/app.min.js') }}"></script>
 </body>
