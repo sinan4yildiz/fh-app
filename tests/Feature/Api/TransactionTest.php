@@ -23,7 +23,7 @@ class TransactionTest extends TestCase
     {
         $reportingApi = new ReportingApi(config: config('services.reportingApi'));
 
-        $list = $reportingApi->transactionList();
+        $list = $reportingApi->getTransactionList();
 
         $this->assertTrue($list->successful());
     }
