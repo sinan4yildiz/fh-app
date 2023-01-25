@@ -9,6 +9,7 @@ const useApi = (url, payload) => {
     useEffect(() => {
         (async () => {
             try {
+                setLoaded(false)
                 const response = await axios.post(url, payload)
                 setData(response.data)
             } catch (error) {
