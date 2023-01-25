@@ -1,10 +1,28 @@
 <?php
 
+namespace App\Interface;
+
+use Illuminate\Http\Client\Response;
+
 interface ReportingApiInterface
 {
-    public function getAccessToken(): string;
+    public function login(): Response;
 
-    public function getAccessTokenFromApi(): string;
+    public function getReport(array $params): string;
 
-    public function getAccessTokenFromLocal(): string;
+    public function getTransaction(string $transactionId): Response;
+
+    public function getTransactionList(array $params = []): Response;
+
+    public function getClient(string $transactionId): Response;
+
+    public function getAccessToken(): string | null;
+
+    function getAccessTokenFromApi(): string | null;
+
+    function getAccessTokenFromLocal(): string | null;
+
+    function getStub($name): string;
+
+    function logException(\Exception $exception): void;
 }

@@ -31,5 +31,9 @@
     },
     "overrides": {
         "autoprefixer": "10.4.5"
+    },
+    "dependencies": {
+        "apexcharts": "^3.36.3",
+        "react-apexcharts": "^1.4.0"
     }
 }

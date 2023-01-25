@@ -1,12 +1,22 @@
 [
     {
-        "count": 283,
-        "total": 28300,
+        "count": 2836,
+        "total": 12300,
         "currency": "USD"
     },
     {
-        "count": 280,
-        "total": 1636515,
+        "count": 2803,
+        "total": 9315,
         "currency": "EUR"
+    },
+    {
+        "count": 6825,
+        "total": 25992,
+        "currency": "TRY"
+    },
+    {
+        "count": 2562,
+        "total": 16274,
+        "currency": "GBP"
     }
 ]

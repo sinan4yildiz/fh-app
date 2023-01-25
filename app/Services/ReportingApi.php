@@ -2,13 +2,14 @@
 
 namespace App\Services;
 
+use App\Interface\ReportingApiInterface;
 use Illuminate\Http\Client\Response;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
-class ReportingApi
+class ReportingApi implements ReportingApiInterface
 {
     protected string $apiUrl;
     protected string $userEmail;
@@ -39,8 +40,14 @@ class ReportingApi
         ]);
     }
 
-    public function getReport(array $params): Response
+    public function getReport(array $params): string
     {
+        /*
+         * the /transactions/report endpoint returns error ("10.72.23.66:27017: The 'cursor' option is required, except for aggregate with the explain argument")
+         * it's probably a MongoDB error, that's why this endpoint has been mocked with a stub file.
+         * */
+        return $this->getStub('TransactionReport');
+
         return $this->request->post("$this->apiUrl/transactions/report", $params);
     }
 
@@ -68,7 +75,7 @@ class ReportingApi
         return $this->getAccessTokenFromLocal() ?? $this->getAccessTokenFromApi();
     }
 
-    private function getAccessTokenFromApi(): string | null
+    public function getAccessTokenFromApi(): string | null
     {
         try {
             $login = $this->login();
@@ -85,7 +92,7 @@ class ReportingApi
         return null;
     }
 
-    private function getAccessTokenFromLocal(): string | null
+    public function getAccessTokenFromLocal(): string | null
     {
         if (!Storage::disk('local')->exists($this->accessTokenFilename))
             return null;
@@ -103,12 +110,12 @@ class ReportingApi
         return null;
     }
 
-    private function getStub($name): string
+    public function getStub($name): string
     {
         return File::get(app_path("stubs/{$name}.json"));
     }
 
-    private function logException(\Exception $exception): void
+    public function logException(\Exception $exception): void
     {
         Log::channel('reportingApi')->emergency(
             implode(PHP_EOL, [
