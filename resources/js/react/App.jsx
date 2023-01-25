@@ -4,10 +4,12 @@ import Toolbar from './components/Toolbar'
 import Transactions from './components/Transactions'
 
 export default function App() {
-    return (<main>
-        <Toolbar/>
-        <Transactions/>
-    </main>)
+    return (
+        <main>
+            <Toolbar/>
+            <Transactions/>
+        </main>
+    )
 }
 
 const root = createRoot(document.getElementById('app'))

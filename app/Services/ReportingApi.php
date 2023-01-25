@@ -58,7 +58,7 @@ class ReportingApi implements ReportingApiInterface
         ]);
     }
 
-    public function getTransactionList(array $params = []): Response
+    public function getTransactions(array $params = []): Response
     {
         return $this->request->post("$this->apiUrl/transaction/list", $params);
     }

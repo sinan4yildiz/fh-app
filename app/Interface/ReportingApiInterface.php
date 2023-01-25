@@ -12,7 +12,7 @@ interface ReportingApiInterface
 
     public function getTransaction(string $transactionId): Response;
 
-    public function getTransactionList(array $params = []): Response;
+    public function getTransactions(array $params = []): Response;
 
     public function getClient(string $transactionId): Response;
 

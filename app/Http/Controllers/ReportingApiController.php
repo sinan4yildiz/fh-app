@@ -32,9 +32,9 @@ class ReportingApiController extends Controller
         return $this->reportingApi->getTransaction($request->post('transactionId'));
     }
 
-    public function getTransactionList(TransactionListRequest $request): string
+    public function getTransactions(TransactionListRequest $request): string
     {
-        return $this->reportingApi->getTransactionList([
+        return $this->reportingApi->getTransactions([
             'fromDate' => $request->post('fromDate'),
             'toDate' => $request->post('toDate'),
             'status' => $request->post('status'),

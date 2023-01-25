@@ -1,19 +1,12 @@
 <?php
 
-namespace Tests\Feature\Api;
+namespace Tests\Unit;
 
 use App\Services\ReportingApi;
 use Tests\TestCase;
 
-class AuthTest extends TestCase
+class ReportingApiTest extends TestCase
 {
-    protected ReportingApi $reportingApi;
-
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
     /**
      * Throws error when login through the API is failed
      *
@@ -38,5 +31,19 @@ class AuthTest extends TestCase
         $reportingApi = new ReportingApi(config: config('services.reportingApi'));
 
         $this->assertTrue(is_string($reportingApi->getAccessToken()));
+    }
+
+    /**
+     * Throws error when transaction list cannot be retrieved
+     *
+     * @return void
+     */
+    public function testGetTransactions(): void
+    {
+        $reportingApi = new ReportingApi(config: config('services.reportingApi'));
+
+        $list = $reportingApi->getTransactions();
+
+        $this->assertTrue($list->successful());
     }
 }

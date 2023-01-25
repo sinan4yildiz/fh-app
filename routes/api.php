@@ -16,12 +16,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::controller(ReportingApiController::class)
+    ->name('reportingApi.')
     ->middleware([
         ApiResponseHandler::class
     ])
     ->group(function () {
-        Route::post('/report', 'getReport');
-        Route::post('/transaction', 'getTransaction');
-        Route::post('/transactions', 'getTransactionList');
-        Route::post('/client', 'getClient');
+        Route::post('/report', 'getReport')->name('getReport');
+        Route::post('/transaction', 'getTransaction')->name('getTransaction');
+        Route::post('/transactions', 'getTransactions')->name('getTransactions');
+        Route::post('/client', 'getClient')->name('getClient');
     });
