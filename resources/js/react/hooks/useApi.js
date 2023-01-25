@@ -17,7 +17,7 @@ const useApi = (url, payload) => {
                 setLoaded(true)
             }
         })()
-    }, [])
+    }, [Object.values(payload).join('+')])
 
     return {data, error, loaded}
 }

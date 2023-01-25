@@ -18,7 +18,7 @@ export default function ClientDetails({transactionId}) {
 
     return (
         <article>
-            <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+            {data.customerInfo && <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                 <tbody>
                 <tr>
                     <td className="w-40">Full name</td>
@@ -45,7 +45,7 @@ export default function ClientDetails({transactionId}) {
                     <td>: {data.customerInfo.updated_at}</td>
                 </tr>
                 </tbody>
-            </table>
+            </table>}
         </article>
     )
 }

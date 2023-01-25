@@ -26,7 +26,7 @@ export default function TransactionDetails({transactionId}) {
                 </tr>
                 <tr>
                     <td className="w-40">Customer</td>
-                    <td>: {`${data.customerInfo.billingFirstName} ${data.customerInfo.billingLastName}`}</td>
+                    <td>: {`${data.customerInfo?.billingFirstName} ${data.customerInfo?.billingLastName}`}</td>
                 </tr>
                 <tr>
                     <td className="w-40">Amount</td>

@@ -2,9 +2,13 @@ import { Dialog, Transition } from '@headlessui/react'
 import React, { Fragment, useState } from 'react'
 import Report from './Report'
 
-export default function Toolbar() {
+export default function Toolbar(props) {
     const [reportDateRange, setReportDateRange] = useState('')
-    let [isReportModalOpen, setIsReportModalOpen] = useState(false)
+    const [isReportModalOpen, setIsReportModalOpen] = useState(false)
+
+    const handleStatusFilterChange = (e) => {
+        props.onStatusFilterChange(e.target.value)
+    }
 
     function closeReportModal() {
         setIsReportModalOpen(false)
@@ -18,12 +22,21 @@ export default function Toolbar() {
     return (
         <section className="flex items-center mb-4">
             <h1 className="text-gray-500 dark:text-gray-400 text-xl font-medium">Transactions</h1>
-            <div className="ml-auto flex items-center w-72">
+            <div className="ml-auto mr-4 flex items-center w-52">
+                <select onChange={handleStatusFilterChange} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-0 focus:outline-none focus:border-blue-500 block w-full py-2.5 px-3.5 dark:bg-gray-800 dark:hover:bg-gray-900 dark:border-gray-700 dark:placeholder-gray-400 dark:text-gray-300 dark:focus:border-blue-500">
+                    <option value="">Transaction Status</option>
+                    <option value="APPROVED">Approved</option>
+                    <option value="WAITING">Waiting</option>
+                    <option value="DECLINED">Declined</option>
+                    <option value="ERROR">Error</option>
+                </select>
+            </div>
+            <div className="flex items-center w-72">
                 <select onChange={event => setReportDateRange(event.target.value)} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-l-lg focus:ring-0 focus:outline-none focus:border-blue-500 block w-full py-2.5 px-3.5 dark:bg-gray-800 dark:hover:bg-gray-900 dark:border-gray-700 dark:placeholder-gray-400 dark:text-gray-300 dark:focus:border-blue-500">
                     <option value="">Date Range</option>
                     <option value="2021-01-01|2022-01-01">Last year</option>
                     <option value="2020-01-01|2022-01-01">Last 2 years</option>
-                    <option value="20217-01-01|2022-01-01">Last 5 years</option>
+                    <option value="2017-01-01|2022-01-01">Last 5 years</option>
                     <option value="2011-01-01|2022-01-01">Last 10 years</option>
                 </select>
                 <button type="button" onClick={openReportModal} className="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-0 font-medium rounded-r-lg text-sm px-5 py-2.5 dark:bg-gray-800 dark:text-gray-300 dark:border-gray-700 dark:hover:bg-gray-900 dark:hover:border-gray-700 border-l-0 whitespace-nowrap">

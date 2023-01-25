@@ -6,15 +6,16 @@ import ClientDetails from './ClientDetails'
 import Spinner from './Loading'
 import TransactionDetails from './TransactionDetails'
 
-export default function Transactions() {
-    let [selectedTransactionId, setSelectedTransactionId] = useState(null)
-    let [isTransactionModalOpen, setIsTransactionModalOpen] = useState(false)
-    let [isClientModalOpen, setIsClientModalOpen] = useState(false)
+export default function Transactions(props) {
+    const [selectedTransactionId, setSelectedTransactionId] = useState(null)
+    const [isTransactionModalOpen, setIsTransactionModalOpen] = useState(false)
+    const [isClientModalOpen, setIsClientModalOpen] = useState(false)
 
     const {data, error, loaded} = useApi(`${config.apiUrl}/transactions`,
         {
             fromDate: '2015-10-01',
-            toDate: '2022-01-24'
+            toDate: '2022-01-24',
+            status: props.status
         })
 
     function closeTransactionDetailsModal() {
@@ -67,9 +68,9 @@ export default function Transactions() {
                         <tr key={key} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                             <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-gray-200 font-medium">
                                 <button type="button" className="flex items-center gap-2" onClick={() => openClientDetailsModal(transaction.transaction.merchant.transactionId)}>
-                                    {`${transaction.customerInfo.billingFirstName} ${transaction.customerInfo.billingLastName}`}
+                                    {`${transaction.customerInfo?.billingFirstName} ${transaction.customerInfo?.billingLastName}`}
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"/>
                                     </svg>
                                 </button>
                             </th>
