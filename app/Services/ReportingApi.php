@@ -112,7 +112,7 @@ class ReportingApi implements ReportingApiInterface
 
     public function getStub($name): string
     {
-        return File::get(app_path("stubs/{$name}.json"));
+        return File::get(app_path("Stubs/{$name}.json"));
     }
 
     public function logException(\Exception $exception): void
